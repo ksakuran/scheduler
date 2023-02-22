@@ -3,7 +3,7 @@ import DayListItem from "./DayListItem";
 
 export default function DayList(props){
 
-  const [getDay, setDay] = useState();
+  //const [currentDay, setDay] = useState();
 
   const listItems = props.days.map(
     (day) => {
@@ -12,7 +12,7 @@ export default function DayList(props){
         name={day.name}  
         spots={day.spots} 
         selected={day.name === props.day} 
-        setDay={setDay} 
+        setDay={props.setDay} 
       />);
     }
   );
