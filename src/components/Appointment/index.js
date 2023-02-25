@@ -29,7 +29,7 @@ export default function Appointment(props) {
       <Header time={props.time}/>
       {mode === SHOW && <Show student={props.interview.student} interviewer={props.interview.interviewer}/>}
       {mode === EMPTY && <Empty onAdd={onAdd}/>}
-      {mode === CREATE && <Form interviewers={[]} onSave={"onSave"} onCancel={onCancel}/>}
+      {mode === CREATE && <Form interviewers={props.interviewers} onSave={"onSave"} onCancel={onCancel}/>}
     </article>
   );
 }
