@@ -36,21 +36,46 @@ state.appointments["2"].interview
 */
 
 export function getInterview(state, appointmentIdInterview) {
-  
+
   if (appointmentIdInterview === null) {
     return null;
   }
 
-  const interviewerId = appointmentIdInterview.interviewer
+  const interviewerId = appointmentIdInterview.interviewer;
 
-  const interview = {  
+  const interview = {
     "student": appointmentIdInterview.student,
-    "interviewer": {  
+    "interviewer": {
       "id": interviewerId,
       "name": state.interviewers[interviewerId].name,
       "avatar": state.interviewers[interviewerId].avatar
     }
-  }
+  };
 
   return interview;
 }
+
+
+export function getInterviewersForDay(state, dayOfWeek) {
+  const days = state.days;
+  let interviewersArray = [];
+
+  if (days.length === 0) {
+    return interviewersArray;
+  }
+
+  const interviewerDay = days.filter(day => {
+    return day.name === dayOfWeek;
+  });
+
+
+  if (interviewerDay.length > 0) {
+    interviewersArray = interviewerDay[0].interviewers;
+  }
+
+  const interviewerInfo = interviewersArray.map((inter) => {
+    return state.interviewers[`${inter}`];
+  });
+
+  return interviewerInfo;
+};
