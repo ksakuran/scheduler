@@ -76,8 +76,8 @@ export default function Application(props) {
     // console.log("cancel interview function");
     // console.log("id in cancelInterview:", id);
     
-    let interviewObj = state.appointments[id].interview
-    console.log(state.appointments[id])
+    // let interviewObj = state.appointments[id].interview
+    // console.log(state.appointments[id])
 
     const appointment = {
       ...state.appointments[id],
