@@ -36,19 +36,28 @@ state.appointments["2"].interview
 */
 
 export function getInterview(state, appointmentIdInterview) {
+  console.log("appointmentIdInterview", appointmentIdInterview)
 
-  if (appointmentIdInterview === null) {
+  if (!appointmentIdInterview) {
     return null;
   }
 
   const interviewerId = appointmentIdInterview.interviewer;
+ 
+  // if (!state.interviewers[interviewerId].name) {
+    
+  //   return null;
+  // }
+  console.log("interviewerId", interviewerId)
+  console.log("state: in getInterview", state)
+  console.log("state.interviewers.id:", state.interviewers[interviewerId])
 
   const interview = {
-    "student": appointmentIdInterview.student,
-    "interviewer": {
-      "id": interviewerId,
-      "name": state.interviewers[interviewerId].name,
-      "avatar": state.interviewers[interviewerId].avatar
+    student: appointmentIdInterview.student,
+    interviewer: {
+      id: interviewerId,
+      name: state.interviewers[interviewerId].name,
+      avatar: state.interviewers[interviewerId].avatar
     }
   };
 

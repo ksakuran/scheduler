@@ -15,8 +15,10 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  //console.log("props in appointment component: ", props)
+
   const onAdd = () => {
-    transition(CREATE)
+    transition(CREATE);
     console.log("clicked onAdd, transition to create")
   }
 
@@ -24,12 +26,29 @@ export default function Appointment(props) {
     back();
   }
 
+
+  const save = (name, interviewer) => {
+    // console.log("name in save fn:", name)
+    // console.log("interviewer in save fn:", interviewer)
+
+    const interview = {
+      student: name,
+      interviewer
+    };
+    
+    props.bookInterview(props.id, interview);
+
+
+    transition(SHOW);
+    
+  }
+
   return (
     <article className="appointment">
       <Header time={props.time}/>
       {mode === SHOW && <Show student={props.interview.student} interviewer={props.interview.interviewer}/>}
       {mode === EMPTY && <Empty onAdd={onAdd}/>}
-      {mode === CREATE && <Form interviewers={props.interviewers} onSave={"onSave"} onCancel={onCancel}/>}
+      {mode === CREATE && <Form interviewers={props.interviewers}  onSave={save} onCancel={onCancel}/>}
     </article>
   );
 }
