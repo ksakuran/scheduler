@@ -22,6 +22,8 @@ export function getAppointmentsForDay(state, dayOfWeek) {
   return appointmentInfo;
 };
 
+// /\ returns array of objects
+
 
 
 export function getInterview(state, appointmentIdInterview) {

@@ -24,11 +24,10 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  //console.log("props in appointment component: ", props)
 
   const onAdd = () => {
     transition(CREATE);
-    console.log("clicked onAdd, transition to create");
+
   };
 
   const onCancel = () => {
