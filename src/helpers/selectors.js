@@ -5,11 +5,9 @@ export function getAppointmentsForDay(state, dayOfWeek) {
   if (days.length === 0) {
     return appointmentsArray;
   }
-
   const appointmentDay = days.filter(day => {
     return day.name === dayOfWeek;
   });
-
 
   if (appointmentDay.length > 0) {
     appointmentsArray = appointmentDay[0].appointments;
@@ -21,6 +19,7 @@ export function getAppointmentsForDay(state, dayOfWeek) {
 
   return appointmentInfo;
 };
+
 
 // /\ returns array of objects
 

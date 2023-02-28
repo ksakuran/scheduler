@@ -10,21 +10,35 @@ const useApplicationData = () => {
     interviewers: {}
   });
 
-
-  const getSpotsForDay = (appointments) => {
-    let days = [...state.days];
+  /// refactored after Francis breakout to not mutate state. 
+  const updateSpotsForDays = (appointments) => {
+   
     //appointments param taken in from bookInterview or cancelInterview
     //is the new appointment added, or the one being taken away
+
+    // get list of appointments for state day using ready made selector
     const appointmentsForDay = getAppointmentsForDay({ ...state, appointments }, state.day);
-    const appointmentsArray = Object.values(appointmentsForDay)
-    const spotsLeft = appointmentsArray.filter(appointment => !appointment.interview);
-    days.forEach(day => {
-      if (day.name === state.day) {
-        day.spots = spotsLeft.length;
-      }
-    });
-    return days;
+    const listOfAppointments = Object.values(appointmentsForDay)
+
+    //calculate spots based on how many appointments have interviews with null value
+    const spotsLeft = listOfAppointments.filter(appointment => !appointment.interview);
+    const spots = spotsLeft.length;
+
+    //get the current day, and create a new day object with accurate number of spots
+    //to return to update state with in bookInterview or cancelInterview fns, 
+    const currentDay = state.days.find((day) =>  day.name === state.day);
+    const newCurrentDay = {...currentDay, spots}
+
+    //get current day index so we can update the newDays at the correct position
+    const newDays = [...state.days]
+    const currentDayIndex = newDays.findIndex((day) => day.name === state.day)
+    newDays[currentDayIndex] = newCurrentDay;
+
+    const updatedDays = [...newDays]
+  
+    return updatedDays;
   };
+
 
 
   const setDay = (day) => setState({ ...state, day });
@@ -40,17 +54,18 @@ const useApplicationData = () => {
       [id]: appointment,
     };
 
+
     return Axios.put(`/api/appointments/${id}`, appointment)
       .then((res) => {
         if (res.status === 204){
-          const days = getSpotsForDay(appointments)
+          const days = updateSpotsForDays(appointments)
           setState((prev) => ({ ...prev, appointments, days }));
         }
         return res;
       })
       .catch((error) => {
         console.log("error:", error.message);
-        throw new Error
+        throw new Error("cannot book interview")
       })
   };
 
@@ -69,14 +84,14 @@ const useApplicationData = () => {
     return Axios.delete(`/api/appointments/${id}`,appointments)
       .then((res) => {
         if (res.status === 204){
-          const days = getSpotsForDay(appointments)
+          const days = updateSpotsForDays(appointments)
           setState((prev) => ({ ...prev, appointments, days }));
         }
         return res;
       })
       .catch((error) => {
         console.log("error:", error.message);
-        throw new Error
+        throw new Error("cannot cancel interview")
       })
 
   }
