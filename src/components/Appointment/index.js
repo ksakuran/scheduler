@@ -26,22 +26,26 @@ export default function Appointment(props) {
     back();
   }
 
-
   const save = (name, interviewer) => {
-    // console.log("name in save fn:", name)
-    // console.log("interviewer in save fn:", interviewer)
 
+    console.log("name in save fn:", name)
+ 
     const interview = {
       student: name,
       interviewer
     };
     
-    props.bookInterview(props.id, interview);
+    console.log("interview.student in save fn", interview.student)
 
+    props.bookInterview(props.id, interview)
+    .then(()=> {
+      console.log("inside .then in save fn, transition show")
+      transition(SHOW);
+    })
 
-    transition(SHOW);
-    
   }
+
+
 
   return (
     <article className="appointment">

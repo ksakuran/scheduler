@@ -28,9 +28,9 @@ export default function Application(props) {
       Axios.get("/api/appointments"),
       Axios.get("/api/interviewers"),
     ]).then((res) => {
-      console.log("0", res[0].data);
-      console.log("1", res[1].data);
-      console.log("2", res[2].data);
+      // console.log("0", res[0].data);
+      // console.log("1", res[1].data);
+      // console.log("2", res[2].data);
       setState((prev) => ({
         ...prev,
         days: res[0].data,
@@ -40,53 +40,55 @@ export default function Application(props) {
     });
   }, []);
 
-  const dailyAppointments = Object.values(getAppointmentsForDay(state, state.day));
+  const dailyAppointments = Object.values(
+    getAppointmentsForDay(state, state.day)
+  );
   const interviewersList = getInterviewersForDay(state, state.day);
 
   const bookInterview = (id, interview) => {
-    // console.log("id:", id);
-    // console.log("interview:", interview);
-
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: { ...interview },
     };
 
     const appointments = {
       ...state.appointments,
-      [id]: appointment
+      [id]: appointment,
     };
 
-    setState({
-      ...state,
-      appointments
-    });
+    console.log("appointment:", appointment);
+    console.log("appointments:", appointments);
 
+    return Axios.put(`/api/appointments/${id}`, appointment)
+      .then((res) => {
+        if (res.status === 204){
+        setState((prev) => ({ ...prev, appointments }));
+        }
+        return res;
+        
+      })
+      .catch((error) => {
+        console.log("error:", error.message);
+      });
   };
 
+  const schedule = dailyAppointments.map((appointment) => {
+    //const interview = getInterview(state, appointment.interview);
+    //console.log("interview in schedule:", interview);
 
-  const schedule = dailyAppointments.map(
-    (appointment) => {
-     
-      //const interview = getInterview(state, appointment.interview);
-      //console.log("interview in schedule:", interview);
-
-      return (
-        <Appointment
-          key={appointment.id}
-          id={appointment.id}
-          time={appointment.time}
-          interview={getInterview(state, appointment.interview)}
-          interviewers={interviewersList}
-          bookInterview={bookInterview}
-          
-        />
-      );
-    }
-  );
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={getInterview(state, appointment.interview)}
+        interviewers={interviewersList}
+        bookInterview={bookInterview}
+      />
+    );
+  });
 
   schedule.push(<Appointment key="last" time="5pm" />);
-
 
   return (
     <main className="layout">

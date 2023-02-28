@@ -17,8 +17,6 @@ export default function Form(props) {
     props.onCancel();
   }
 
-  console.log("interviewer from form component",interviewer)
-  console.log("props.onSave", props.onSave)
 
   return (
     <main className="appointment__card appointment__card--create">
