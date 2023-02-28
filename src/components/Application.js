@@ -72,6 +72,26 @@ export default function Application(props) {
       });
   };
 
+  const cancelInterview = (id) => {
+    console.log("cancel interview function");
+    console.log("id in cancelInterview:", id);
+    
+    let interviewObj = state.appointments[id].interview
+    console.log(state.appointments[id])
+
+    return Axios.delete(`/api/appointments/${id}`,interviewObj)
+      .then((res) => {
+        if (res.status === 204){
+          interviewObj = null;
+        }
+        return res;
+      })
+      .catch((error) => {
+        console.log("error:", error.message);
+      });
+
+  }
+
   const schedule = dailyAppointments.map((appointment) => {
     //const interview = getInterview(state, appointment.interview);
     //console.log("interview in schedule:", interview);
@@ -84,6 +104,7 @@ export default function Application(props) {
         interview={getInterview(state, appointment.interview)}
         interviewers={interviewersList}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
