@@ -73,16 +73,27 @@ export default function Application(props) {
   };
 
   const cancelInterview = (id) => {
-    console.log("cancel interview function");
-    console.log("id in cancelInterview:", id);
+    // console.log("cancel interview function");
+    // console.log("id in cancelInterview:", id);
     
     let interviewObj = state.appointments[id].interview
     console.log(state.appointments[id])
 
-    return Axios.delete(`/api/appointments/${id}`,interviewObj)
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return Axios.delete(`/api/appointments/${id}`,appointments)
       .then((res) => {
         if (res.status === 204){
-          interviewObj = null;
+          //interviewObj = null;
+          setState((prev) => ({ ...prev, appointments }));
         }
         return res;
       })
