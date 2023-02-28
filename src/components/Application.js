@@ -69,15 +69,11 @@ export default function Application(props) {
       })
       .catch((error) => {
         console.log("error:", error.message);
-      });
+        throw new Error
+      })
   };
 
   const cancelInterview = (id) => {
-    // console.log("cancel interview function");
-    // console.log("id in cancelInterview:", id);
-    
-    // let interviewObj = state.appointments[id].interview
-    // console.log(state.appointments[id])
 
     const appointment = {
       ...state.appointments[id],
@@ -88,7 +84,7 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment,
     };
-
+    
     return Axios.delete(`/api/appointments/${id}`,appointments)
       .then((res) => {
         if (res.status === 204){
@@ -99,7 +95,8 @@ export default function Application(props) {
       })
       .catch((error) => {
         console.log("error:", error.message);
-      });
+        throw new Error
+      })
 
   }
 
