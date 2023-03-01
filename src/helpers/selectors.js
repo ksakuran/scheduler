@@ -1,13 +1,15 @@
-export function getAppointmentsForDay(state, dayOfWeek) {
+const getAppointmentsForDay = (state, dayOfWeek) => {
   const days = state.days;
   let appointmentsArray = [];
 
   if (days.length === 0) {
     return appointmentsArray;
   }
+
   const appointmentDay = days.filter(day => {
     return day.name === dayOfWeek;
   });
+
 
   if (appointmentDay.length > 0) {
     appointmentsArray = appointmentDay[0].appointments;
@@ -21,34 +23,38 @@ export function getAppointmentsForDay(state, dayOfWeek) {
 };
 
 
-// /\ returns array of objects
+function getInterview(state, appointmentInterview) {
 
-
-
-export function getInterview(state, appointmentIdInterview) {
-
-
-  if (!appointmentIdInterview) {
+  if (appointmentInterview === null) {
     return null;
   }
 
-  const interviewerId = appointmentIdInterview.interviewer;
+  const interviewerId = appointmentInterview.interviewer
+  
 
-
-  const interview = {
-    student: appointmentIdInterview.student,
-    interviewer: {
-      id: interviewerId,
-      name: state.interviewers[interviewerId].name,
-      avatar: state.interviewers[interviewerId].avatar
+  const interview = {  
+    "student": appointmentInterview.student,
+    "interviewer": {  
+      "id": interviewerId,
+      "name": state.interviewers[interviewerId].name,
+      "avatar": state.interviewers[interviewerId].avatar
     }
-  };
+  }
 
   return interview;
 }
 
+// function getInterview(state, interview) {
+//   if (interview) {
+//     const interviewer = Object.values(state.interviewers).filter(interviewer => interviewer.id === interview.interviewer)[0];
+//     const result = { student: interview.student, interviewer };
+//     return result;
+//   }
+//   return null;
+// }
 
-export function getInterviewersForDay(state, dayOfWeek) {
+
+const getInterviewersForDay = (state, dayOfWeek) => {
   const days = state.days;
   let interviewersArray = [];
 
@@ -60,7 +66,6 @@ export function getInterviewersForDay(state, dayOfWeek) {
     return day.name === dayOfWeek;
   });
 
-
   if (interviewerDay.length > 0) {
     interviewersArray = interviewerDay[0].interviewers;
   }
@@ -71,3 +76,5 @@ export function getInterviewersForDay(state, dayOfWeek) {
 
   return interviewerInfo;
 };
+
+export { getAppointmentsForDay, getInterviewersForDay, getInterview}
