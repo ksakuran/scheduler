@@ -3,24 +3,16 @@ import "components/InterviewerListItem.scss";
 import classNames from "classnames";
 
 //props: id of interviewer, name of interviewer, avatar url of image for interviewer
-//needs to know if it selected boolean
+//needs to know if its selected boolean
 
 export default function InterviewerListItem(props) {
-
-  // const handleClick = () => {
-  //   props.setInterviewer
-  // };
-
-  const interviewerListItemClass = classNames("interviewers__item",{
-    "interviewers__item--selected": props.selected
+  const interviewerListItemClass = classNames("interviewers__item", {
+    "interviewers__item--selected": props.selected,
   });
 
-  const interviewerListImageClass = classNames("interviewers__item-image",{
-    "interviewers__item--selected-image": props.selected
+  const interviewerListImageClass = classNames("interviewers__item-image", {
+    "interviewers__item--selected-image": props.selected,
   });
-
-
-
 
   return (
     <li className={interviewerListItemClass} onClick={props.setInterviewer}>
@@ -29,7 +21,7 @@ export default function InterviewerListItem(props) {
         src={props.avatar}
         alt={props.name}
       />
-        {props.selected && <span>{props.name}</span>}
+      {props.selected && <span>{props.name}</span>}
     </li>
   );
 }

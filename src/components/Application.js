@@ -10,23 +10,16 @@ import { getInterview } from "helpers/selectors";
 import { getInterviewersForDay } from "helpers/selectors";
 
 export default function Application(props) {
-
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview,
-  } = useApplicationData();
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
   const interviewersList = getInterviewersForDay(state, state.day);
-  
+
   const dailyAppointments = Object.values(
     getAppointmentsForDay(state, state.day)
   );
-  
 
   const schedule = dailyAppointments.map((appointment) => {
-
     const interview = getInterview(state, appointment.interview);
 
     return (
