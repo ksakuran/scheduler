@@ -27,3 +27,4 @@ npm run storybook
 npm run cypress
 ```
 
+![](https://github.com/ksakuran/scheduler/blob/master/public/scheduler.gif?raw=true)
