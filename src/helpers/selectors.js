@@ -1,20 +1,21 @@
 const getAppointmentsForDay = (state, dayOfWeek) => {
   const days = state.days;
   let appointmentsArray = [];
-
+  //if no days are exsisting in state data then return empty array
   if (days.length === 0) {
     return appointmentsArray;
   }
-
-  const appointmentDay = days.filter(day => {
+  
+  //determine which day we are finding appointments for
+  const currentDay = days.filter((day) => {
     return day.name === dayOfWeek;
   });
 
-
-  if (appointmentDay.length > 0) {
-    appointmentsArray = appointmentDay[0].appointments;
+  if (currentDay.length > 0) {
+    appointmentsArray = currentDay[0].appointments;
   }
 
+  //return array of appointment objects
   const appointmentInfo = appointmentsArray.map((appt) => {
     return state.appointments[`${appt}`];
   });
@@ -23,58 +24,50 @@ const getAppointmentsForDay = (state, dayOfWeek) => {
 };
 
 
-function getInterview(state, appointmentInterview) {
-
+const getInterview = (state, appointmentInterview) => {
   if (appointmentInterview === null) {
     return null;
   }
 
-  const interviewerId = appointmentInterview.interviewer
-  
+  const interviewerId = appointmentInterview.interviewer;
 
-  const interview = {  
-    "student": appointmentInterview.student,
-    "interviewer": {  
-      "id": interviewerId,
-      "name": state.interviewers[interviewerId].name,
-      "avatar": state.interviewers[interviewerId].avatar
-    }
-  }
+  const interview = {
+    student: appointmentInterview.student,
+    interviewer: {
+      id: interviewerId,
+      name: state.interviewers[interviewerId].name,
+      avatar: state.interviewers[interviewerId].avatar,
+    },
+  };
 
   return interview;
-}
-
-// function getInterview(state, interview) {
-//   if (interview) {
-//     const interviewer = Object.values(state.interviewers).filter(interviewer => interviewer.id === interview.interviewer)[0];
-//     const result = { student: interview.student, interviewer };
-//     return result;
-//   }
-//   return null;
-// }
+};
 
 
 const getInterviewersForDay = (state, dayOfWeek) => {
   const days = state.days;
   let interviewersArray = [];
 
+  //if no days are exsisting in state data then return empty array
   if (days.length === 0) {
     return interviewersArray;
   }
 
-  const interviewerDay = days.filter(day => {
+  //determine which day we are finding the interviewers for
+  const currentDay = days.filter((day) => {
     return day.name === dayOfWeek;
   });
 
-  if (interviewerDay.length > 0) {
-    interviewersArray = interviewerDay[0].interviewers;
+  if (currentDay.length > 0) {
+    interviewersArray = currentDay[0].interviewers;
   }
 
-  const interviewerInfo = interviewersArray.map((inter) => {
-    return state.interviewers[`${inter}`];
+  //create array of interviewer objects
+  const interviewerInfo = interviewersArray.map((id) => {
+    return state.interviewers[`${id}`];
   });
 
   return interviewerInfo;
 };
 
-export { getAppointmentsForDay, getInterviewersForDay, getInterview}
+export { getAppointmentsForDay, getInterviewersForDay, getInterview };
