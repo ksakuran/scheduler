@@ -33,10 +33,6 @@ export default function Appointment(props) {
     back();
   };
 
-  const onClose = () => {
-    back();
-    back();
-  };
 
   const save = (name, interviewer) => {
     const interview = {
@@ -78,11 +74,11 @@ export default function Appointment(props) {
       {mode === EMPTY && <Empty onAdd={onAdd} />}
 
       {mode === ERROR_DELETE && (
-        <Error onClose={onClose} message={"Cannot delete interview"} />
+        <Error onClose={onCancel} message={"Cannot delete interview"} />
       )}
 
       {mode === ERROR_SAVE && (
-        <Error onClose={onClose} message={"Cannot save interview"} />
+        <Error onClose={onCancel} message={"Cannot save interview"} />
       )}
 
       {mode === SHOW && (
