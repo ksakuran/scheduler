@@ -33,5 +33,5 @@ npm run cypress
 To set up the accompanying database, follow the link to visit the scheduler-api repository and go through the README 
 [Scheduler API Repository](https://github.com/ksakuran/scheduler-api)
 
-
+## Preview Of The Application
 ![](https://github.com/ksakuran/scheduler/blob/master/public/scheduler.gif?raw=true)
