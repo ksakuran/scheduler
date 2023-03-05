@@ -1,4 +1,6 @@
 # Interview Scheduler
+This is a single page application, built using React that allows a user to schedule interviews. 
+The data is persisted by the API server using a PostgreSQL database.
 
 ## Setup
 
@@ -26,5 +28,10 @@ npm run storybook
 ```sh
 npm run cypress
 ```
+
+## Setting Up The Database API
+To set up the accompanying database, follow the link to visit the scheduler-api repository and go through the README 
+[Scheduler API Repository](https://github.com/ksakuran/scheduler-api)
+
 
 ![](https://github.com/ksakuran/scheduler/blob/master/public/scheduler.gif?raw=true)
