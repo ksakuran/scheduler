@@ -2,8 +2,6 @@ import React from "react";
 import "components/InterviewerListItem.scss";
 import classNames from "classnames";
 
-//props: id of interviewer, name of interviewer, avatar url of image for interviewer
-//needs to know if its selected boolean
 
 export default function InterviewerListItem(props) {
   const interviewerListItemClass = classNames("interviewers__item", {

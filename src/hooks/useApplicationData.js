@@ -26,7 +26,7 @@ const useApplicationData = () => {
     });
   }, []);
 
-  /// refactored after Francis' breakout to not mutate state.
+  
   const updateSpotsForDays = (appointments) => {
     //appointments param taken in from bookInterview or cancelInterview
     //is the new appointment added, or the one being taken away
